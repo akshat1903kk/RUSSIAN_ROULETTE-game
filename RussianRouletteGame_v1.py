@@ -1,5 +1,6 @@
-import random
+#help needed : the intended funtion is that after the gun becomes empty then it reloads again but it always relode itself after each player truns so please help me to fix it
 
+import random
 def load():#returns a list represnting a gun with 0 being a blank and 1 being a bullet
     gun = []
     for i in range(6):
