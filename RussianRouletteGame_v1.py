@@ -41,20 +41,33 @@ def PvP():
     Raises:
         ValueError: If a player enters non-integer input when prompted to make a choice.
     """
-    try:
-        print("welcome to PvP mode!!")
-        p1 = input("enter player 1 name:")
-        p2 = input("enter player 2 name:")
+    print("welcome to PvP mode!!")
+    p1 = input("enter player 1 name:")
+    p2 = input("enter player 2 name:")
         print("\n\n")
         p1_h = 5 #player 1 health
         p2_h = 5 #player 2 health
       # whoevers health will become 0 first will loose ; each bullet cause 1 damage
+        gun,b,f = load()
         while True:
-            gun,b,f = load()
-            print(f"No. of Blanks:{b}\nNo. of Full:{f}\n") # loading gun list , and printing the bullet and blank count
+            if not gun:
+                print("The gun is empty, reloading...")
+                gun,b,f = load()
+
+            print(f"No. of Blanks:{gun.count(0)}\nNo. of Full:{gun.count(1)}\n") # loading gun list , and printing the bullet and blank count
             while True:
+                if not gun:
+                    break
                 print(f"{p1}'s turn:")
-                play = int(input(f"1. To Shoot Yourself Enter 1\n2. To Shoot {p2} Enter 2:\n"))
+                while True:
+                    try:
+                        play = int(input(f"1. To Shoot Yourself Enter 1\n2. To Shoot {p2} Enter 2:\n"))
+                        if play in [1, 2]:
+                            break
+                        else:
+                            print("Invalid choice. Please enter 1 or 2.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number (1 or 2).")
                 if play == 1:
                     if gun[0]==0:
                         print("puff....(blank shot)")
@@ -82,15 +95,24 @@ def PvP():
             print(f"{p2} health = {p2_h}\n\n")
             if p1_h == 0:
                 print(f'{p2} wins!!')
-                
-                break
+                return
             elif p2_h == 0:
                 print(f'{p1} wins!!')
-                break
+                return
             
             while True:
+                if not gun:
+                    break
                 print(f"{p2}'s turn:")
-                play = int(input(f"1. To Shoot Yourself Enter 1\n2. To Shoot {p1} Enter 2:\n"))
+                while True:
+                    try:
+                        play = int(input(f"1. To Shoot Yourself Enter 1\n2. To Shoot {p1} Enter 2:\n"))
+                        if play in [1, 2]:
+                            break
+                        else:
+                            print("Invalid choice. Please enter 1 or 2.")
+                    except ValueError:
+                        print("Invalid input. Please enter a number (1 or 2).")
                 if play == 1:
                     if gun[0]==0:
                         print("puff....(blank shot)")
@@ -118,14 +140,10 @@ def PvP():
             print(f"{p2} health = {p2_h}\n\n")
             if p1_h == 0:
                 print(f'{p2} wins!!')
-                dead = True
-                break
+                return
             elif p2_h == 0:
                 print(f'{p1} wins!!')
-                dead = True
-                break
-    except ValueError:
-        print("enter correctly!!")
+                return
     
 def PvE():
     """Placeholder for a Player-versus-Environment (PvE) game mode.
