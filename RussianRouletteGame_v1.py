@@ -1,7 +1,19 @@
 #help needed : the intended funtion is that after the gun becomes empty then it reloads again but it always relode itself after each player truns so please help me to fix it
 
 import random
-def load():#returns a list represnting a gun with 0 being a blank and 1 being a bullet
+def load():
+    """Prepares a gun for a round of Russian Roulette.
+
+    This function simulates loading a six-chamber revolver with a random assortment of blanks and live bullets.
+    A list is used to represent the gun's chamber, where '0' signifies a blank cartridge and '1' indicates a live bullet.
+    The function randomly assigns either a blank or a live bullet to each of the six chambers.
+
+    Returns:
+        tuple: A tuple containing three elements:
+            - list: The gun's chamber, represented as a list of 0s and 1s.
+            - int: The total count of blank cartridges in the chamber.
+            - int: The total count of live bullets in the chamber.
+    """
     gun = []
     for i in range(6):
         bullet = random.randint(0,1)
@@ -11,6 +23,24 @@ def load():#returns a list represnting a gun with 0 being a blank and 1 being a 
     return gun,b,f #gun is the main list and b is blank count and 1 is bullet count
 
 def PvP():
+    """Manages a Player-versus-Player (PvP) game of Russian Roulette.
+
+    This function facilitates a two-player game where participants take turns shooting.
+    Each player begins with 5 health points, and the objective is to be the last one standing.
+    A player loses the game when their health reaches zero. The gun is reloaded after each turn,
+    and the number of blanks and live bullets is displayed at the start of each round.
+
+    Players have two choices on their turn:
+    1. Shoot themselves: If the chamber contains a blank, they are safe and can continue their turn.
+       If it's a live bullet, they lose one health point, and their turn ends.
+    2. Shoot their opponent: A blank results in a missed shot, ending their turn.
+       A live bullet deals one damage to the opponent, also ending the turn.
+
+    The game concludes when one player's health is depleted, at which point the other player is declared the winner.
+
+    Raises:
+        ValueError: If a player enters non-integer input when prompted to make a choice.
+    """
     try:
         print("welcome to PvP mode!!")
         p1 = input("enter player 1 name:")
@@ -98,9 +128,28 @@ def PvP():
         print("enter correctly!!")
     
 def PvE():
+    """Placeholder for a Player-versus-Environment (PvE) game mode.
+
+    This function is intended to house the logic for a single-player version of Russian Roulette,
+    where the player would compete against an AI opponent. Currently, this mode is not implemented.
+    """
     pass
 
 def main():
+    """Serves as the main entry point for the Russian Roulette game.
+
+    This function presents the player with the main menu, where they can choose between different game modes.
+    The available options are Player-versus-Player (PvP), Player-versus-Environment (PvE), or exiting the game.
+    It continuously prompts the user for input until they decide to quit.
+
+    The menu options are:
+    1. PvP: Initiates a two-player game.
+    2. PvE: A placeholder for a single-player mode against an AI (currently not implemented).
+    3. Quit: Terminates the game application.
+
+    The function is designed to handle invalid inputs, such as non-integer values,
+    and will prompt the user to enter a correct choice.
+    """
     mFlag = True
     while mFlag == True:
         
